@@ -1,0 +1,22 @@
+{
+  "name": "todo_app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mehtishamulhaq/TODO_APP.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mehtishamulhaq/TODO_APP/issues"
+  },
+  "homepage": "https://github.com/mehtishamulhaq/TODO_APP#readme",
+  "dependencies": {
+    "create-react-app": "^4.0.3"
+  }
+}
