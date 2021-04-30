@@ -6,7 +6,13 @@ import './Button.css';
 const Button = ({ children, type, className, ...otherprops }) => {
 
   return (
-    <button type='button' className={`btn ${type} ${className}`}>{children}</button>
+    <button
+      type='button'
+      className={`btn ${type} ${className}`}
+      {...otherprops}
+    >
+      {children}
+    </button>
   );
 };
 

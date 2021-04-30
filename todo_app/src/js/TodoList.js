@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './../scss/TodoList.css';
-import dummyData from './../constants/dummyData.json'
 
-export default function TodoList() {
-    const [list, updateList] = useState(dummyData['list']);
+
+export default function TodoList({ list }) {
+
     return (
         <div className='list-container'>
             <ul>

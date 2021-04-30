@@ -12,13 +12,23 @@ export default function InputComponent({
     type,
     helpText,
     required,
+    ref,
     ...otherProps
 }) {
     return (
         <React.Fragment>
             <div className={`form-input-container ${className}`}>
                 {label ? (<label htmlFor={id} className={`form-label ${className}`}>{label}</label>) : null}
-                <input type={type} className={`form-control ${className}`} id={id} placeholder={placeholder} required={required} />
+                <input
+                    type={type}
+                    className={`form-control ${className}`}
+                    id={id}
+                    placeholder={placeholder}
+                    required={required}
+                    value={value}
+                    onChange={onChange}
+                    ref={ref}
+                    {...otherProps} />
                 {helpText ? (<div className={`form-text ${className}`}>{helpText}</div>) : null}
 
             </div>
