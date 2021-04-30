@@ -9,19 +9,32 @@ export default function Checkbox({
     onChange,
     children,
     disabled,
+    classes,
+    styles,
     ...otherprops }) {
+
+    let containerClassName = classes && classes.container ? `form-check ${classes.container}` : 'form-check';
+    let inputClassName = classes && classes.input ? `form-check-input ${classes.input}` : 'form-check-input';
+    let labelClassName = classes && classes.label ? `form-check-label ${classes.label}` : 'form-check-label';
+
     return (
-        <div className="form-check">
+        <div
+            className={containerClassName}
+            style={styles && styles.container ? styles.container : {}}>
             <input
                 id={id}
-                className="form-check-input"
+                className={inputClassName}
                 type="checkbox"
                 name={name}
                 value={value}
                 disabled={disabled}
                 onChange={onChange}
+                style={styles && styles.input ? styles.input : {}}
                 {...otherprops} />
-            <label className="form-check-label" htmlFor={id}>
+            <label
+                className={labelClassName}
+                htmlFor={id}
+                style={styles && styles.label ? styles.label : {}}>
                 {children}
             </label>
         </div>
@@ -34,5 +47,7 @@ Checkbox.defaultProps = {
     options: [],
     name: '',
     value: '',
-    onChange: () => { }
+    onChange: () => { },
+    classes: { label: '', input: '', container: '' },
+    styles: { label: {}, input: {}, container: {} }
 }

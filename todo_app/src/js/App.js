@@ -5,7 +5,8 @@ import Grid from '@material-ui/core/Grid';
 import Input from './../components/Input/Input';
 import Label from './../components/Label/Label';
 import Button from './../components/Button/Button';
-import dummyData from './../constants/dummyData.json'
+import dummyData from './../constants/dummyData.json';
+
 
 function App() {
   const [list, updateList] = useState(dummyData['list']);
