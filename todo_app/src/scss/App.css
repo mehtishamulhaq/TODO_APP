@@ -2,14 +2,25 @@
   box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background: #c2c9d2;
+}
+
 .App {
   display: flex;
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
   background-color: bisque;
 }
 
-.center-container {
+.container-grid {
   justify-content: center;
 }
 
@@ -29,6 +40,11 @@
   height: auto;
   max-height: 200px;
   margin-bottom: 30px;
+}
+
+.center-item-grid {
+  display: flex;
+  flex-direction: column;
 }
 
 .description-field-wrapper {

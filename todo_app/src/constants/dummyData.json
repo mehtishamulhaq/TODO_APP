@@ -1,0 +1,70 @@
+{
+    "list": [
+       {
+         "description": "Task 1",
+         "type": "ITEM",
+         "isComplete": false,
+         "steps": [
+           {
+         "description": "Step A",
+         "type": "SUBITEM",
+         "isComplete": false
+       },
+         {
+         "description": "Step B",
+         "type": "SUBITEM",
+         "isComplete": false
+       },
+         {
+         "description": "Step C",
+         "type": "SUBITEM",
+         "isComplete": false
+       }
+     ]
+       },
+       {
+         "description": "Task 2",
+         "type": "ITEM",
+         "isComplete": false,
+         "steps": [
+             {
+           "description": "Step A",
+           "type": "SUBITEM",
+           "isComplete": false
+         },
+           {
+           "description": "Step B",
+           "type": "SUBITEM",
+           "isComplete": false
+         },
+           {
+           "description": "Step C",
+           "type": "SUBITEM",
+           "isComplete": false
+         }
+       ]
+       },
+       {
+         "description": "Task 3",
+         "type": "ITEM",
+         "isComplete": false,
+         "steps": [
+           {
+         "description": "Step A",
+         "type": "SUBITEM",
+         "isComplete": false
+       },
+         {
+         "description": "Step B",
+         "type": "SUBITEM",
+         "isComplete": false
+       },
+         {
+         "description": "Step C",
+         "type": "SUBITEM",
+         "isComplete": false
+       }
+     ]
+       }
+   ]
+}
