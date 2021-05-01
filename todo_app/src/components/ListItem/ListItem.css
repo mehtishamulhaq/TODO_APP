@@ -32,7 +32,27 @@
 }
 
 .sub-tasks-container {
-  background-color: plum;
   width: 80%;
   margin: 0 auto;
+}
+
+.new-step {
+  color: lightslategrey;
+}
+
+.new-steps-label-wrapper {
+  flex: 2;
+}
+
+.new-step-button {
+  font-size: 12px;
+}
+
+.new-step-input {
+  border: none;
+}
+
+.new-step-input:focus {
+  border: none;
+  box-shadow: none;
 }

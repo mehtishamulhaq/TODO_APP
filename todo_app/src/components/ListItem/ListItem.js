@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import Checkbox from './../Checkbox/Checkbox';
+import Button from './../Button/Button';
+import Input from './../Input/Input';
 import './ListItem.css';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { v4 as uuidv4 } from 'uuid';
+import cloneDeep from 'lodash/cloneDeep';
 
-export default function ListItem({
-    listItem,
-}) {
+export default function ListItem({ listItem, onListItemChange }) {
 
     const [expanded, toggleExpanded] = useState(false);
+    const [stepDescription, updateStepDescription] = useState('');
 
     const getCompletionStatus = () => {
         let { steps } = listItem;
@@ -29,13 +32,51 @@ export default function ListItem({
         return stepsCompleted.length > 0;
     }
 
+    const addNewStep = () => {
+        if (stepDescription && stepDescription !== '') {
+            const newStep = {
+                id: uuidv4(),
+                description: stepDescription,
+                type: "SUBITEM",
+                isComplete: false,
+            }
+
+            const duplicatItem = cloneDeep(listItem);
+            const { steps } = duplicatItem;
+            steps.push(newStep);
+            onListItemChange(duplicatItem);
+            updateStepDescription('');
+        }
+
+    }
+
     const renderSteps = () => {
 
-        return listItem.steps.map((step, index) =>
-            < div className='list-item sub-tasks-container' >
-                <Checkbox checked={isStepComplete(index)}>{step.description}</Checkbox>
-            </div>
+
+        return (
+            <React.Fragment>
+                { listItem.steps.map((step, index) =>
+                    < div className='list-item sub-tasks-container' >
+                        <Checkbox checked={isStepComplete(index)}>{step.description}</Checkbox>
+                    </div>
+                )}
+                < div className='list-item sub-tasks-container new-step' >
+                    <div className='new-steps-label-wrapper'>
+                        <Input
+                            className='new-step-input'
+                            placeholder='What are the steps'
+                            value={stepDescription}
+                            onChange={(event) => updateStepDescription(event.target.value)}
+                        />
+                    </div>
+                    <div className='new-steps-button-wrapper'>
+                        <Button className='new-step-button' onClick={addNewStep}>New Step</Button>
+                    </div>
+                </div>
+            </React.Fragment>
         )
+
+
     }
 
     return (

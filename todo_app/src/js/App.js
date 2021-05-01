@@ -6,30 +6,33 @@ import Input from './../components/Input/Input';
 import Label from './../components/Label/Label';
 import Button from './../components/Button/Button';
 import dummyData from './../constants/dummyData.json';
-
+import { v4 as uuidv4 } from 'uuid';
+import cloneDeep from 'lodash/cloneDeep';
 
 function App() {
   const [list, updateList] = useState(dummyData['list']);
   const [description, updateDescription] = useState('Bakwasiayat');
   const inputRef = useRef(null);
 
-  const handleUpdateList = (newItem) => {
-    const duplicateList = [...list];
-    duplicateList.push(newItem);
-    updateList(duplicateList);
-    updateDescription('');
+  const handleUpdateList = (newList) => {
+    updateList(newList);
   }
 
   const addNewItem = () => {
     // let description = inputRef.current.value;
     if (description && description !== '') {
       const newItem = {
+        id: uuidv4(),
         description: description,
         type: "ITEM",
         isComplete: false,
         steps: []
       }
-      handleUpdateList(newItem);
+      // handleUpdateList(newItem);
+      const duplicateList = cloneDeep(list);
+      duplicateList.push(newItem);
+      updateList(duplicateList);
+      updateDescription('');
     }
   }
 
@@ -60,7 +63,7 @@ function App() {
             </div>
           </div>
 
-          <TodoList list={list} />
+          <TodoList list={list} onListChange={handleUpdateList} />
         </Grid>
       </Grid>
     </div>
