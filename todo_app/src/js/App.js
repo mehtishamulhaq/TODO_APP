@@ -36,7 +36,7 @@ function App() {
   return (
     <div className="App">
       <Grid container className='container-grid'>
-        <Grid item xs={12} sm={6} m={4} className='center-item-grid'>
+        <Grid item xs={12} sm={4} m={4} className='center-item-grid'>
           <div className='header-container'>
             <Label className='header-label'>TODO APP</Label>
           </div>
