@@ -6,7 +6,7 @@ export default function TodoList({ list }) {
 
     return (
         <div className='list-container'>
-            {list.map(listItem => <ListItem description={listItem.description} />)}
+            {list.map(listItem => <ListItem listItem={listItem} />)}
         </div>
     )
 }

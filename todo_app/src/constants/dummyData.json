@@ -30,17 +30,17 @@
              {
            "description": "Step A",
            "type": "SUBITEM",
-           "isComplete": false
+           "isComplete": true
          },
            {
            "description": "Step B",
            "type": "SUBITEM",
-           "isComplete": false
+           "isComplete": true
          },
            {
            "description": "Step C",
            "type": "SUBITEM",
-           "isComplete": false
+           "isComplete": true
          }
        ]
        },
@@ -52,15 +52,10 @@
            {
          "description": "Step A",
          "type": "SUBITEM",
-         "isComplete": false
+         "isComplete": true
        },
          {
          "description": "Step B",
-         "type": "SUBITEM",
-         "isComplete": false
-       },
-         {
-         "description": "Step C",
          "type": "SUBITEM",
          "isComplete": false
        }

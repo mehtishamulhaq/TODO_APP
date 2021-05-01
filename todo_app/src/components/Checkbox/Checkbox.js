@@ -29,6 +29,7 @@ export default function Checkbox({
                 value={value}
                 disabled={disabled}
                 onChange={onChange}
+                checked={checked}
                 style={styles && styles.input ? styles.input : {}}
                 {...otherprops} />
             <label
