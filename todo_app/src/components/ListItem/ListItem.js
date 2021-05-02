@@ -143,7 +143,7 @@ export default function ListItem({ listItem, onListItemChange }) {
                 <div className='right-container'>
                     <div className='completion-status'>{getCompletionStatus()}</div>
                     <div className='toggle-task' onClick={() => toggleExpanded(!expanded)}>
-                        {expanded ? <ExpandMoreIcon /> : <ExpandLessIcon />}
+                        {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                     </div>
                 </div>
             </div>
