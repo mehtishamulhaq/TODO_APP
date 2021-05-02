@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import './../scss/App.css';
 import TodoList from './TodoList';
 import Grid from '@material-ui/core/Grid';
@@ -12,14 +12,13 @@ import cloneDeep from 'lodash/cloneDeep';
 function App() {
   const [list, updateList] = useState(dummyData['list']);
   const [description, updateDescription] = useState('Bakwasiayat');
-  const inputRef = useRef(null);
 
   const handleUpdateList = (newList) => {
     updateList(newList);
+    console.log(newList);
   }
 
   const addNewItem = () => {
-    // let description = inputRef.current.value;
     if (description && description !== '') {
       const newItem = {
         id: uuidv4(),
@@ -47,7 +46,6 @@ function App() {
           <div className='add-description-container'>
             <div className='description-field-wrapper'>
               <Input
-                ref={inputRef}
                 placeholder='What to do ?'
                 value={description}
                 onChange={(event) => updateDescription(event.target.value)}

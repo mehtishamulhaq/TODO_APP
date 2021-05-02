@@ -30,7 +30,7 @@
          "id": "task2",
          "description": "Task 2",
          "type": "ITEM",
-         "isComplete": false,
+         "isComplete": true,
          "steps": [
              {
             "id": "stepA",

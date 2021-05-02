@@ -20,16 +20,24 @@ export default function ListItem({ listItem, onListItemChange }) {
 
     }
 
-    const isTaskComplete = () => {
-        let { steps } = listItem;
-        let stepsCompleted = steps.filter(step => step.isComplete);
-        return steps.length === stepsCompleted.length;
+    const getStepFromId = (steps, id) => {
+        const index = steps.findIndex(step => step.id === id);
+        return steps[index];
     }
 
-    const isStepComplete = (index) => {
+    const isTaskComplete = () => {
+        // let { steps } = listItem;
+        // let stepsCompleted = steps.filter(step => step.isComplete);
+        // return steps.length === stepsCompleted.length;
+        // return listItem.isComplete || steps.length === stepsCompleted.length; // has a flaw it does not let you uncheck task if sub tasks are complete
+        return listItem.isComplete;
+    }
+
+    const isStepComplete = (id) => {
         let { steps } = listItem;
-        let stepsCompleted = steps.filter((step, i) => i === index && step.isComplete);
-        return stepsCompleted.length > 0;
+        let currentStep = getStepFromId(steps, id);
+
+        return currentStep.isComplete;
     }
 
     const addNewStep = () => {
@@ -50,14 +58,45 @@ export default function ListItem({ listItem, onListItemChange }) {
 
     }
 
+    const toggleTaskStatus = (event, id) => {
+        const duplicatItem = cloneDeep(listItem);
+        const { steps, isComplete } = duplicatItem;
+        // if (!isComplete)    // means it was false prior to this operation
+        if (event.target.checked)   // means it was false prior to this operation
+            steps.forEach(step => {
+                step.isComplete = true;
+            });
+        duplicatItem.isComplete = !isComplete;
+        onListItemChange(duplicatItem);
+    }
+
+    const toggleStepStatus = (event, id) => {
+        const duplicatItem = cloneDeep(listItem);
+        const { steps } = duplicatItem;
+        let currentStepIndex = steps.findIndex(item => item.id === id);
+        // steps[currentStepIndex].isComplete = !steps[currentStepIndex].isComplete;
+        steps[currentStepIndex].isComplete = event.target.checked;
+
+        // update task complete status
+        const totalCompletedSteps = steps.filter(step => step.isComplete);
+        if (totalCompletedSteps.length === steps.length)
+            duplicatItem.isComplete = true;
+        else
+            duplicatItem.isComplete = false;
+        onListItemChange(duplicatItem);
+    }
+
     const renderSteps = () => {
 
 
         return (
-            <React.Fragment>
+            <React.Fragment >
                 { listItem.steps.map((step, index) =>
-                    < div className='list-item sub-tasks-container' >
-                        <Checkbox checked={isStepComplete(index)}>{step.description}</Checkbox>
+                    < div key={step.id} className='list-item sub-tasks-container' >
+                        <Checkbox
+                            checked={isStepComplete(step.id)}
+                            onChange={(event) => toggleStepStatus(event, step.id)}>{step.description}
+                        </Checkbox>
                     </div>
                 )}
                 < div className='list-item sub-tasks-container new-step' >
@@ -82,7 +121,10 @@ export default function ListItem({ listItem, onListItemChange }) {
     return (
         <React.Fragment>
             <div className='list-item'>
-                <Checkbox checked={isTaskComplete()}>{listItem.description}</Checkbox>
+                <Checkbox
+                    checked={isTaskComplete()}
+                    onChange={(event) => toggleTaskStatus(event, listItem.id)}>{listItem.description}
+                </Checkbox>
                 <div className='right-container'>
                     <div className='completion-status'>{getCompletionStatus()}</div>
                     <div className='toggle-task' onClick={() => toggleExpanded(!expanded)}>

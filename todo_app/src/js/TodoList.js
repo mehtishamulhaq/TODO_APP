@@ -9,12 +9,12 @@ export default function TodoList({ list, onListChange }) {
         let currentItemIndex = list.findIndex(item => item.id === updatedItem.id);
         let duplicateList = cloneDeep(list);
         duplicateList[currentItemIndex] = updatedItem;
-        onListChange(duplicateList);
+        onListChange(duplicateList)
     }
 
     return (
         <div className='list-container'>
-            {list.map(listItem => <ListItem listItem={listItem} onListItemChange={handleListItemChange} />)}
+            {list.map(listItem => <ListItem key={listItem.id} listItem={listItem} onListItemChange={handleListItemChange} />)}
         </div>
     )
 }
