@@ -23,7 +23,8 @@ export default function Checkbox({
             style={styles && styles.container ? styles.container : {}}>
             <input
                 id={id}
-                className={inputClassName}
+                // className={inputClassName}
+                className={`checkbox-input ${inputClassName}`}
                 type="checkbox"
                 name={name}
                 value={value}

@@ -99,7 +99,12 @@ export default function ListItem({ listItem, onListItemChange }) {
                     < div key={step.id} className='list-item sub-tasks-container' >
                         <Checkbox
                             checked={isStepComplete(step.id)}
-                            onChange={(event) => toggleStepStatus(event, step.id)}>{step.description}
+                            onChange={(event) => toggleStepStatus(event, step.id)}
+                            styles={{
+                                input: { fontSize: '16px', margin: '0px 8px' },
+                                label: { fontSize: '16px', color: 'lightslategrey' }
+                            }}>
+                            {step.description}
                         </Checkbox>
                     </div>
                 )}
@@ -127,7 +132,13 @@ export default function ListItem({ listItem, onListItemChange }) {
             <div className='list-item'>
                 <Checkbox
                     checked={isTaskComplete()}
-                    onChange={(event) => toggleTaskStatus(event, listItem.id)}>{listItem.description}
+                    onChange={(event) => toggleTaskStatus(event, listItem.id)}
+                    styles={{
+                        input: { fontSize: '20px', margin: '0px 10px' },
+                        label: { fontSize: '20px', fontWeight: 500 }
+                    }}
+                >
+                    {listItem.description}
                 </Checkbox>
                 <div className='right-container'>
                     <div className='completion-status'>{getCompletionStatus()}</div>

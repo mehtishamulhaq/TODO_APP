@@ -56,3 +56,7 @@
   border: none;
   box-shadow: none;
 }
+
+.list-item-checkbox {
+  font-size: large;
+}
