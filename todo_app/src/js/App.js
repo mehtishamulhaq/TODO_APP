@@ -40,7 +40,7 @@ function App() {
       <Grid container className='container-grid'>
         <Grid item xs={12} sm={4} m={4} className='center-item-grid'>
           <div className='header-container'>
-            <Label className='header-label'>TODO APP</Label>
+            <Label className='header-label'>Todo App</Label>
           </div>
 
           <div className='add-description-container'>
