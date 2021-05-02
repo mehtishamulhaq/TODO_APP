@@ -11,7 +11,7 @@ import cloneDeep from 'lodash/cloneDeep';
 
 function App() {
   const [list, updateList] = useState(dummyData['list']);
-  const [description, updateDescription] = useState('Bakwasiayat');
+  const [description, updateDescription] = useState('');
 
   const handleUpdateList = (newList) => {
     updateList(newList);

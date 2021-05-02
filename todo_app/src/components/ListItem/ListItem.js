@@ -66,6 +66,10 @@ export default function ListItem({ listItem, onListItemChange }) {
             steps.forEach(step => {
                 step.isComplete = true;
             });
+        else
+            steps.forEach(step => {
+                step.isComplete = false;
+            });
         duplicatItem.isComplete = !isComplete;
         onListItemChange(duplicatItem);
     }
