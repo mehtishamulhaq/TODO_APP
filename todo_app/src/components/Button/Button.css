@@ -1,18 +1,12 @@
-/* .contained {
-  min-height: 30px;
-  height: 24px;
-  width: 100px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: normal;
-  font-size: 12px !important;
-  text-transform: none;
-  white-space: pre;
-  background-color: "#007bff";
-  border: "1px solid white";
-  border-radius: 3px;
-  box-shadow: "0px 0px !important";
+.button-component {
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: #d8d9da;
 }
 
-contained:hover {
-  box-shadow: "0px 0px !important";
-} */
+.button-component:hover {
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: #d8d9da;
+  opacity: 0.7;
+}

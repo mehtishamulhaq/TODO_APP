@@ -14,7 +14,13 @@ export default function TodoList({ list, onListChange }) {
 
     return (
         <div className='list-container'>
-            {list.map(listItem => <ListItem key={listItem.id} listItem={listItem} onListItemChange={handleListItemChange} />)}
+            <div style={{
+                width: '100%',
+                height: 'inherit',
+                overflowY: 'auto'
+            }}>
+                {list.map(listItem => <ListItem key={listItem.id} listItem={listItem} onListItemChange={handleListItemChange} />)}
+            </div>
         </div>
     )
 }
