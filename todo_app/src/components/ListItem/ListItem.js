@@ -11,11 +11,11 @@ import cloneDeep from 'lodash/cloneDeep';
 export default function ListItem({ listItem, onListItemChange }) {
 
     const [expanded, toggleExpanded] = useState(false);
-    const [stepDescription, updateStepDescription] = useState('');
+    const [stepTitle, updateStepTitle] = useState('');
 
     const getCompletionStatus = () => {
-        let { steps } = listItem;
-        let stepsCompleted = steps.filter(step => step.isComplete);
+        let { Tasks: steps } = listItem;
+        let stepsCompleted = steps.filter(step => step.status);
         return `${stepsCompleted.length} of ${steps.length} completed`;
 
     }
@@ -26,67 +26,67 @@ export default function ListItem({ listItem, onListItemChange }) {
     }
 
     const isTaskComplete = () => {
-        // let { steps } = listItem;
-        // let stepsCompleted = steps.filter(step => step.isComplete);
+        // let {Tasks: steps} = listItem;
+        // let stepsCompleted = steps.filter(step => step.status);
         // return steps.length === stepsCompleted.length;
-        // return listItem.isComplete || steps.length === stepsCompleted.length; // has a flaw it does not let you uncheck task if sub tasks are complete
-        return listItem.isComplete;
+        // return listItem.status || steps.length === stepsCompleted.length; // has a flaw it does not let you uncheck task if sub tasks are complete
+        return listItem.status;
     }
 
     const isStepComplete = (id) => {
-        let { steps } = listItem;
+        let { Tasks: steps } = listItem;
         let currentStep = getStepFromId(steps, id);
 
-        return currentStep.isComplete;
+        return currentStep.status;
     }
 
     const addNewStep = () => {
-        if (stepDescription && stepDescription !== '') {
+        if (stepTitle && stepTitle !== '') {
             const newStep = {
                 id: uuidv4(),
-                description: stepDescription,
-                type: "SUBITEM",
-                isComplete: false,
+                title: stepTitle,
+                status: false,
+                TodoId: listItem.id
             }
 
             const duplicatItem = cloneDeep(listItem);
-            const { steps } = duplicatItem;
+            const { Tasks: steps } = duplicatItem;
             steps.push(newStep);
             onListItemChange(duplicatItem);
-            updateStepDescription('');
+            updateStepTitle('');
         }
 
     }
 
     const toggleTaskStatus = (event, id) => {
         const duplicatItem = cloneDeep(listItem);
-        const { steps, isComplete } = duplicatItem;
-        // if (!isComplete)    // means it was false prior to this operation
+        const { Tasks: steps, status } = duplicatItem;
+        // if (!status)    // means it was false prior to this operation
         if (event.target.checked)   // means it was false prior to this operation
             steps.forEach(step => {
-                step.isComplete = true;
+                step.status = true;
             });
         else
             steps.forEach(step => {
-                step.isComplete = false;
+                step.status = false;
             });
-        duplicatItem.isComplete = !isComplete;
+        duplicatItem.status = !status;
         onListItemChange(duplicatItem);
     }
 
     const toggleStepStatus = (event, id) => {
         const duplicatItem = cloneDeep(listItem);
-        const { steps } = duplicatItem;
+        const { Tasks: steps } = duplicatItem;
         let currentStepIndex = steps.findIndex(item => item.id === id);
-        // steps[currentStepIndex].isComplete = !steps[currentStepIndex].isComplete;
-        steps[currentStepIndex].isComplete = event.target.checked;
+        // steps[currentStepIndex].status = !steps[currentStepIndex].status;
+        steps[currentStepIndex].status = event.target.checked;
 
         // update task complete status
-        const totalCompletedSteps = steps.filter(step => step.isComplete);
+        const totalCompletedSteps = steps.filter(step => step.status);
         if (totalCompletedSteps.length === steps.length)
-            duplicatItem.isComplete = true;
+            duplicatItem.status = true;
         else
-            duplicatItem.isComplete = false;
+            duplicatItem.status = false;
         onListItemChange(duplicatItem);
     }
 
@@ -95,7 +95,7 @@ export default function ListItem({ listItem, onListItemChange }) {
 
         return (
             <React.Fragment >
-                { listItem.steps.map((step, index) =>
+                { listItem.Tasks.map((step, index) =>
                     < div key={step.id} className='list-item sub-tasks-container' >
                         <Checkbox
                             checked={isStepComplete(step.id)}
@@ -104,7 +104,7 @@ export default function ListItem({ listItem, onListItemChange }) {
                                 input: { fontSize: '16px', margin: '0px 8px' },
                                 label: { fontSize: '16px', color: 'lightslategrey' }
                             }}>
-                            {step.description}
+                            {step.title}
                         </Checkbox>
                     </div>
                 )}
@@ -113,8 +113,8 @@ export default function ListItem({ listItem, onListItemChange }) {
                         <Input
                             className='new-step-input'
                             placeholder='What are the steps'
-                            value={stepDescription}
-                            onChange={(event) => updateStepDescription(event.target.value)}
+                            value={stepTitle}
+                            onChange={(event) => updateStepTitle(event.target.value)}
                         />
                     </div>
                     <div className='new-steps-button-wrapper'>
@@ -138,7 +138,7 @@ export default function ListItem({ listItem, onListItemChange }) {
                         label: { fontSize: '20px', fontWeight: 500 }
                     }}
                 >
-                    {listItem.description}
+                    {listItem.title}
                 </Checkbox>
                 <div className='right-container'>
                     <div className='completion-status'>{getCompletionStatus()}</div>

@@ -5,13 +5,15 @@ import Grid from '@material-ui/core/Grid';
 import Input from './../components/Input/Input';
 import Label from './../components/Label/Label';
 import Button from './../components/Button/Button';
-import dummyData from './../constants/dummyData.json';
+// import dummyData from './../constants/dummyData.json';
+import dummyData from './../constants/dummyDataV2.json';
 import { v4 as uuidv4 } from 'uuid';
 import cloneDeep from 'lodash/cloneDeep';
 
 function App() {
   const [list, updateList] = useState(dummyData['list']);
-  const [description, updateDescription] = useState('');
+  // const [list, updateList] = useState(dummyData);
+  const [title, updateTitle] = useState('');
 
   const handleUpdateList = (newList) => {
     updateList(newList);
@@ -19,19 +21,18 @@ function App() {
   }
 
   const addNewItem = () => {
-    if (description && description !== '') {
+    if (title && title !== '') {
       const newItem = {
         id: uuidv4(),
-        description: description,
-        type: "ITEM",
-        isComplete: false,
-        steps: []
+        title: title,
+        status: false,
+        Tasks: []
       }
       // handleUpdateList(newItem);
       const duplicateList = cloneDeep(list);
       duplicateList.push(newItem);
       updateList(duplicateList);
-      updateDescription('');
+      updateTitle('');
     }
   }
 
@@ -47,8 +48,8 @@ function App() {
             <div className='description-field-wrapper'>
               <Input
                 placeholder='What to do ?'
-                value={description}
-                onChange={(event) => updateDescription(event.target.value)}
+                value={title}
+                onChange={(event) => updateTitle(event.target.value)}
               />
             </div>
             <div className='add-button-wrapper'>
