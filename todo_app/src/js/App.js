@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './../scss/App.css';
 import TodoList from './TodoList';
 import Grid from '@material-ui/core/Grid';
@@ -9,11 +9,30 @@ import Button from './../components/Button/Button';
 import dummyData from './../constants/dummyDataV2.json';
 import { v4 as uuidv4 } from 'uuid';
 import cloneDeep from 'lodash/cloneDeep';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import webApiUtils from './../utils/webApiUtils';
 
 function App() {
-  const [list, updateList] = useState(dummyData['list']);
+  const [list, updateList] = useState();
   // const [list, updateList] = useState(dummyData);
-  const [title, updateTitle] = useState('');
+  const [title, updateTitle] = useState(null);
+
+  const fetchData = () => {
+    let result = webApiUtils.getList();
+
+    result.then(function (data) {
+      // handle success
+      updateList(data['list']);
+    })
+      .catch(function (error) {
+        // handle error
+        alert('unable to load Data');
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleUpdateList = (newList) => {
     updateList(newList);
@@ -21,24 +40,27 @@ function App() {
   }
 
   const addNewItem = () => {
+
     if (title && title !== '') {
-      const newItem = {
-        id: uuidv4(),
-        title: title,
-        status: false,
-        createdAt: new Date().toISOString(),
-        Tasks: []
-      }
-      // handleUpdateList(newItem);
-      const duplicateList = cloneDeep(list);
-      duplicateList.push(newItem);
-      updateList(duplicateList);
-      updateTitle('');
+      let result = webApiUtils.createTask(title);
+
+      result.then(function (data) {
+        // handle success
+        const duplicateList = cloneDeep(list);
+        duplicateList.push(data);
+        updateList(duplicateList);
+        updateTitle('');
+      })
+        .catch(function (error) {
+          // handle error
+          alert('unable to create task');
+        });
+
     }
   }
 
   return (
-    <div className="App">
+    list ? (<div className="App">
       <Grid container className='container-grid'>
         <Grid item xs={12} sm={4} m={4} className='center-item-grid'>
           <div className='header-container'>
@@ -59,14 +81,18 @@ function App() {
                 onClick={(event) => addNewItem(event)}
               >
                 New List
-              </Button>
+            </Button>
             </div>
           </div>
 
           <TodoList list={list} onListChange={handleUpdateList} />
         </Grid>
       </Grid>
-    </div>
+    </div>) :
+      (<div className='circular-progress-wrapper'>
+        <CircularProgress />
+      </div>
+      )
   );
 }
 

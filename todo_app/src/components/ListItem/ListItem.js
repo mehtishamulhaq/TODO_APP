@@ -7,6 +7,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { v4 as uuidv4 } from 'uuid';
 import cloneDeep from 'lodash/cloneDeep';
+import webApiUtils from './../../utils/webApiUtils';
 
 export default function ListItem({ listItem, onListItemChange }) {
 
@@ -42,21 +43,21 @@ export default function ListItem({ listItem, onListItemChange }) {
 
     const addNewStep = () => {
         if (stepTitle && stepTitle !== '') {
-            const newStep = {
-                id: uuidv4(),
-                title: stepTitle,
-                status: false,
-                createdAt: new Date().toISOString(),
-                TodoId: listItem.id
-            }
 
-            const duplicatItem = cloneDeep(listItem);
-            const { Tasks: steps } = duplicatItem;
-            steps.push(newStep);
-            onListItemChange(duplicatItem);
-            updateStepTitle('');
+            let result = webApiUtils.createSubTask(stepTitle, listItem.id);
+            result.then(function (data) {
+                // handle success
+                const duplicatItem = cloneDeep(listItem);
+                const { Tasks: steps } = duplicatItem;
+                steps.push(data);
+                onListItemChange(duplicatItem);
+                updateStepTitle('');
+            })
+                .catch(function (error) {
+                    // handle error
+                    alert('unable to create step');
+                });
         }
-
     }
 
     const toggleTaskStatus = (event, id) => {
