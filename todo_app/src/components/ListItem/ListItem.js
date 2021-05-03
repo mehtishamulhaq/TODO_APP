@@ -46,6 +46,7 @@ export default function ListItem({ listItem, onListItemChange }) {
                 id: uuidv4(),
                 title: stepTitle,
                 status: false,
+                createdAt: new Date().toISOString(),
                 TodoId: listItem.id
             }
 

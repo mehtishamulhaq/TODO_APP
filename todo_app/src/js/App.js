@@ -26,6 +26,7 @@ function App() {
         id: uuidv4(),
         title: title,
         status: false,
+        createdAt: new Date().toISOString(),
         Tasks: []
       }
       // handleUpdateList(newItem);
